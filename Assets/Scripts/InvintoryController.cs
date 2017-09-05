@@ -17,7 +17,7 @@ public class InvintoryController : MonoBehaviour {
         itemFactory = gameObject.AddComponent(typeof(ItemFactory)) as ItemFactory;
 
         //just for testing we'll add some items to their invintory
-        for (int i = 0; i < 3; ++i) {
+        for (int i = 0; i <Random.Range(2,7); ++i) {
             items.Add(itemFactory.createItem());
             items[i].transform.SetPositionAndRotation(new Vector2(0, (-50 * i) + 190),Quaternion.identity);
             items[i].transform.SetParent(invintoryPanel.transform,false);

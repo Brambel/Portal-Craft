@@ -8,10 +8,11 @@ public class Item : MonoBehaviour
     ,IPointerEnterHandler
     ,IPointerExitHandler
 {
-
-    private string itemName;
     private GameObject infoPanel;
     private GameObject imagePanel;
+    private GameObject root;
+
+    private string itemName;
     private Rarity rarity;
     private BaseItem baseItem;
 
@@ -21,6 +22,7 @@ public class Item : MonoBehaviour
 
     public void init(GameObject root, string name, Rarity rarity, BaseItem baseItem){
         //find our components
+        this.root = root;
         infoPanel = root.transform.Find("InfoPanel").gameObject;
         imagePanel = root.transform.Find("ImagePanel").gameObject;
 
@@ -32,8 +34,8 @@ public class Item : MonoBehaviour
         }
 
         this.ItemName = name;
-        this.rarity = rarity;
-        this.baseItem = baseItem;
+        this.Rarity = rarity;
+        this.BaseItem = baseItem;
     }
 
 	// Update is called once per frame
@@ -72,11 +74,27 @@ public class Item : MonoBehaviour
         get {
             return rarity;
         }
+        protected set{
+            rarity = value;
+            if(rarity == Rarity.rare) {
+                root.GetComponent<Image>().color = UnityEngine.Color.yellow;
+            } else if(rarity == Rarity.magic) {
+                root.GetComponent<Image>().color = UnityEngine.Color.green;
+            }
+        }
     }
 
     public BaseItem BaseItem {
         get {
             return baseItem;
+        }
+        protected set{
+            baseItem = value;
+            if(baseItem == BaseItem.map) {
+                imagePanel.GetComponent<Image>().color = UnityEngine.Color.red;
+            } else if(baseItem == BaseItem.material) {
+                imagePanel.GetComponent<Image>().color = UnityEngine.Color.blue;
+            }
         }
     }
 }

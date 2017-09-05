@@ -9,6 +9,7 @@ public class ItemFactory : MonoBehaviour{
     public GameObject itemPrefab;
 
     private static int itemId=0;
+
 	
     // Use this for initialization
 	void Start () {
@@ -30,7 +31,9 @@ public class ItemFactory : MonoBehaviour{
         }
         GameObject item = Instantiate(itemPrefab, new Vector2(0, 0), itemPrefab.transform.rotation);
         Item thisItem = item.GetComponent<Item>();
-        thisItem.init(item,"Item "+itemId, determineRarity(rarityMult), determineBaseItem());
+        Rarity r = determineRarity(rarityMult);
+        BaseItem b = determineBaseItem();
+        thisItem.init(item,r.ToString()+" "+b.ToString(), r, b);
 
         ++itemId;
         return item;
