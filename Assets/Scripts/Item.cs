@@ -9,18 +9,17 @@ public class Item : MonoBehaviour
     ,IPointerExitHandler
 {
 
-    private string name;
-    private GameObject root;
+    private string itemName;
     private GameObject infoPanel;
     private GameObject imagePanel;
+    private Rarity rarity;
+    private BaseItem baseItem;
 
     void Start() {
         
     }
 
-    public void init(GameObject root, string name){
-        this.root = root;
-
+    public void init(GameObject root, string name, Rarity rarity, BaseItem baseItem){
         //find our components
         infoPanel = root.transform.Find("InfoPanel").gameObject;
         imagePanel = root.transform.Find("ImagePanel").gameObject;
@@ -31,7 +30,10 @@ public class Item : MonoBehaviour
         if(imagePanel == null) {
             Debug.Log("imagePanel null");
         }
-        this.Name = name;
+
+        this.ItemName = name;
+        this.rarity = rarity;
+        this.baseItem = baseItem;
     }
 
 	// Update is called once per frame
@@ -41,28 +43,40 @@ public class Item : MonoBehaviour
 
     public void OnPointerEnter(PointerEventData eventData){
 
-        Debug.Log("enterd: " + Name+" EventData: "+eventData);
+        Debug.Log("enterd: " + ItemName+" rarity: "+Rarity.ToString()+" base: "+BaseItem.ToString());
+
 
     }
 
     public void OnPointerExit(PointerEventData eventData){
-        Debug.Log("exited: " + Name+" EventData: "+eventData);
+        Debug.Log("exited: " + ItemName);
     }
 
-    public string Name {
+    public string ItemName {
         get {
-            return name;
+            return itemName;
         }
         protected set {
-            name = value;
+            itemName = value;
 
             Text nameText = infoPanel.GetComponentInChildren<Text>();
             if(nameText != null) {
-                nameText.text = name;
+                nameText.text = itemName;
             } else {
                 Debug.Log("failed it get infoPanel/text");
             }
         }
     }
 
+    public Rarity Rarity {
+        get {
+            return rarity;
+        }
+    }
+
+    public BaseItem BaseItem {
+        get {
+            return baseItem;
+        }
+    }
 }

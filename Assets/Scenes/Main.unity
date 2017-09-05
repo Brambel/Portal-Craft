@@ -190,7 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8d1122dd3bd0c4ca2a2db412c0c8d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 1013640394253020, guid: fadb32aa1ae687d469e47040a1834643, type: 2}
   invintoryPanel: {fileID: 1798851369}
 --- !u!1 &227562096
 GameObject:
