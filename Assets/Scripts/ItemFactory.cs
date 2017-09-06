@@ -25,7 +25,7 @@ public class ItemFactory : MonoBehaviour{
 		
 	}
 
-    public GameObject createItem(int rarityMult = 1){
+    public GameObject createItem(InvintoryController invControl, int rarityMult = 1){
         if(itemPrefab == null) {
             Debug.Log("item null");
         }
@@ -33,7 +33,7 @@ public class ItemFactory : MonoBehaviour{
         Item thisItem = item.GetComponent<Item>();
         Rarity r = determineRarity(rarityMult);
         BaseItem b = determineBaseItem();
-        thisItem.init(item,r.ToString()+" "+b.ToString(), r, b);
+        thisItem.init(item,r.ToString()+" "+b.ToString(), r, b, invControl);
 
         ++itemId;
         return item;

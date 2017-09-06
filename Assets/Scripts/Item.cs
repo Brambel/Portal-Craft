@@ -7,10 +7,12 @@ using UnityEngine.EventSystems;
 public class Item : MonoBehaviour
     ,IPointerEnterHandler
     ,IPointerExitHandler
+    ,IPointerClickHandler
 {
     private GameObject infoPanel;
     private GameObject imagePanel;
     private GameObject root;
+    public InvintoryController invController;
 
     private string itemName;
     private Rarity rarity;
@@ -20,11 +22,18 @@ public class Item : MonoBehaviour
         
     }
 
-    public void init(GameObject root, string name, Rarity rarity, BaseItem baseItem){
+    void Awake(){
+
+    }
+
+    public void init(GameObject root, string name, Rarity rarity, BaseItem baseItem, InvintoryController invControl){
+        
         //find our components
         this.root = root;
         infoPanel = root.transform.Find("InfoPanel").gameObject;
         imagePanel = root.transform.Find("ImagePanel").gameObject;
+        this.invController = invControl;
+
 
         if(infoPanel == null) {
             Debug.Log("infoPanel null");
@@ -52,6 +61,15 @@ public class Item : MonoBehaviour
 
     public void OnPointerExit(PointerEventData eventData){
         Debug.Log("exited: " + ItemName);
+    }
+
+    public void OnPointerClick(PointerEventData eventData){
+        if(invController == null) {
+            Debug.Log("invController is null");
+        } else {
+            invController.itemClicked(eventData, this);   
+        }
+                                 
     }
 
     public string ItemName {

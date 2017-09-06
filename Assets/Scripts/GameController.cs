@@ -5,5 +5,10 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-    public GameObject navigationController;
+    public NavigationController navControl;
+    public InvintoryController invControl;
+
+    public void testInv(){ //temporary test method
+        invControl.freeItems();
+    }
 }

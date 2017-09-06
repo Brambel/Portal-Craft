@@ -7,6 +7,9 @@ public class NavigationController : MonoBehaviour {
 
     public Button[] buttons;
     public GameObject[] splashes; //TODO: renam
+    public GameController gameControl;
+
+    private bool firstInvClick = true;
 
     public void Start() {
         //clear all buttons
@@ -24,6 +27,10 @@ public class NavigationController : MonoBehaviour {
     }
 
     public void invintoryClicked() {
+        if(firstInvClick) {
+            firstInvClick = false;
+            gameControl.testInv();
+        }
         clearScreen();
         buttons[1].interactable = false;
         Debug.Log("we're on invintory");
