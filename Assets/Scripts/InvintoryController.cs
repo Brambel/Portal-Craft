@@ -9,10 +9,13 @@ public class InvintoryController : MonoBehaviour {
     public GameObject invintoryPanel;
     public GameController gameControl;
     public MapController mapControl;
-    public static InvintoryController Instance; //singelton call
+        public static InvintoryController Instance; //singelton call
 
     private ItemFactory itemFactory;
+    private CraftingController craftControl;
     private invintoryList items;
+
+    private Item previousSelection=null;
 
     private class invintoryList{
 
@@ -75,6 +78,7 @@ public class InvintoryController : MonoBehaviour {
 
     void Start(){
         mapControl = MapController.Instance;
+        craftControl = CraftingController.Instance;
         items = new invintoryList(8, invintoryPanel);  //currently all we have space for
     }
 
@@ -88,13 +92,8 @@ public class InvintoryController : MonoBehaviour {
 	
     public void freeItems(){
         //just for testing we'll add some items to their invintory
-        for (int i = 0; i < Random.Range(4, 8); ++i) {
-            if(items.addItem(itemFactory.createItem())) {
-                
-            } else {
-                break;
-            }
-
+        for (int i = 0; i < Random.Range(4, 8); ++i){
+            addItem(itemFactory.createItem().GetComponent<Item>());
         }
     }
 
@@ -102,6 +101,12 @@ public class InvintoryController : MonoBehaviour {
         string msg = "clicked: " + item.ItemName;
         Debug.Log("items.count: " + items.getCount());
         if(item.BaseItem == BaseItem.map) {
+
+            if(previousSelection != null) {//if we have a material selected unselect
+                previousSelection.highlight(false);
+                previousSelection = null;
+            }
+
             msg += " poof, rain items";
             List<Item> loot = mapControl.createMapLoot(item);
             items.removeItem(item.gameObject);
@@ -110,11 +115,32 @@ public class InvintoryController : MonoBehaviour {
             }
         } else if(item.BaseItem == BaseItem.material) {
             msg += " touching stuff";
+            if(previousSelection == null) {//if this is first selection remember it
+                previousSelection = item;
+                item.highlight(true);
+            }else{
+                craftControl.combinMaterials(previousSelection,item);
+            }
         } else {
             msg += " ERROR non matching base type";
         }
 
         Debug.Log(msg);
+    }
+
+    public void removeItem(Item item){
+        items.removeItem(item.gameObject);
+    }
+
+    public bool addItem(Item item){
+        try{
+            items.addItem(itemFactory.createItem());
+            return true;
+        }
+        catch(System.ArgumentException ex){
+            Debug.Log(ex.GetType().Name+": "+ex.Message);
+        }
+        return false;
     }
 
 	// Update is called once per frame

@@ -88,17 +88,31 @@ public class Item : MonoBehaviour
         }
     }
 
+    public void highlight(bool b){
+        if(b) {//highlight
+            root.GetComponent<Image>().color = UnityEngine.Color.red;
+        } else {
+            setRarityColor();
+        }
+    }
+
     public Rarity Rarity {
         get {
             return rarity;
         }
         protected set{
             rarity = value;
-            if(rarity == Rarity.rare) {
-                root.GetComponent<Image>().color = UnityEngine.Color.yellow;
-            } else if(rarity == Rarity.magic) {
-                root.GetComponent<Image>().color = UnityEngine.Color.green;
-            }
+            setRarityColor();
+        }
+    }
+
+    private void setRarityColor(){
+        if(rarity == Rarity.rare) {
+            root.GetComponent<Image>().color = UnityEngine.Color.yellow;
+        } else if(rarity == Rarity.magic) {
+            root.GetComponent<Image>().color = UnityEngine.Color.green;
+        } else {
+            root.GetComponent<Image>().color = UnityEngine.Color.grey;
         }
     }
 

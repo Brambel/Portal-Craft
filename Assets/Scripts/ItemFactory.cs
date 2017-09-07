@@ -36,13 +36,14 @@ public class ItemFactory : MonoBehaviour{
 	}
 
     public GameObject createItem(float rarityMult = 1f){
-        if(itemPrefab == null) {
-            Debug.Log("item null");
-        }
+        return createItem(determineBaseItem(), rarityMult);
+    }
+
+    public GameObject createItem(BaseItem baseItem, float rarityMult = 1f){
         GameObject item = Instantiate(itemPrefab, new Vector2(0, 0), itemPrefab.transform.rotation);
         Item thisItem = item.GetComponent<Item>();
         Rarity r = determineRarity(rarityMult);
-        BaseItem b = determineBaseItem();
+        BaseItem b = baseItem;
         thisItem.init(item,r.ToString()+" "+b.ToString(), r, b);
 
         ++itemId;
@@ -63,8 +64,7 @@ public class ItemFactory : MonoBehaviour{
     }
 
     private BaseItem determineBaseItem(){
-        
         int proc = UnityEngine.Random.Range(0, Enum.GetValues(typeof(BaseItem)).Length);
-        return (BaseItem) Enum.GetValues(typeof(BaseItem)).GetValue(proc);
+        return (BaseItem)Enum.GetValues(typeof(BaseItem)).GetValue(proc);
     }
 }
