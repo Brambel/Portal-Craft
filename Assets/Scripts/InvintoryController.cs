@@ -8,6 +8,7 @@ public class InvintoryController : MonoBehaviour {
 
     public GameObject invintoryPanel;
     public GameController gameControl;
+    public static InvintoryController Instance; //singelton call
 
     private ItemFactory itemFactory;
     private invintoryList items;
@@ -33,7 +34,7 @@ public class InvintoryController : MonoBehaviour {
                 reorder();
                 return true;
             }
-            Debug.Log("item didn't add");
+            //Debug.Log("item didn't add");
             return false;
         }
 
@@ -42,7 +43,7 @@ public class InvintoryController : MonoBehaviour {
                 --count;
 
                 Destroy(gmObj);
-                Debug.Log("item destroyed");
+                //Debug.Log("item destroyed");
                 reorder();
                 return true;
             }
@@ -71,8 +72,8 @@ public class InvintoryController : MonoBehaviour {
         }
     }
 
-    void Start(){
-        
+        void Start(){
+        Instance = this;
     }
 
 	void Awake () {
@@ -88,7 +89,7 @@ public class InvintoryController : MonoBehaviour {
         //just for testing we'll add some items to their invintory
         for (int i = 0; i < Random.Range(4, 8); ++i) {
             Debug.Log("items.count: " + items.getCount());
-            if(items.addItem(itemFactory.createItem(this))) {
+            if(items.addItem(itemFactory.createItem())) {
                 
             } else {
                 break;

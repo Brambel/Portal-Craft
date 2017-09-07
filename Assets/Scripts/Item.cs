@@ -26,13 +26,13 @@ public class Item : MonoBehaviour
 
     }
 
-    public void init(GameObject root, string name, Rarity rarity, BaseItem baseItem, InvintoryController invControl){
+    public void init(GameObject parentPanel, string name, Rarity rarity, BaseItem baseItem){
         
         //find our components
-        this.root = root;
-        infoPanel = root.transform.Find("InfoPanel").gameObject;
-        imagePanel = root.transform.Find("ImagePanel").gameObject;
-        this.invController = invControl;
+        this.root = parentPanel;
+        infoPanel = parentPanel.transform.Find("InfoPanel").gameObject;
+        imagePanel = parentPanel.transform.Find("ImagePanel").gameObject;
+        this.invController = InvintoryController.Instance;
 
 
         if(infoPanel == null) {
