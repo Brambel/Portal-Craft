@@ -7,8 +7,12 @@ public class CraftingController : MonoBehaviour {
     public static CraftingController Instance;
 	// Use this for initialization
 	void Start () {
-        Instance = this;
+        
 	}
+
+    void Awake(){
+        Instance = this;
+    }
 	
 	// Update is called once per frame
 	void Update () {

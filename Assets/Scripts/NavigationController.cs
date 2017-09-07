@@ -13,16 +13,17 @@ public class NavigationController : MonoBehaviour {
     private bool firstInvClick = true;
 
     public void Start(){
-        Instance = this;
-    }
-
-    public void Awake() {
         //clear all buttons
         foreach (GameObject g in splashes) {
             g.SetActive(false);
         }
-            
+
         mainMenuClicked();
+    }
+
+    public void Awake() {
+        Instance = this;
+
     }
 
     public void mainMenuClicked() {

@@ -7,6 +7,16 @@ using UnityEngine.UI;
 public class ItemFactory : MonoBehaviour{
 
     public GameObject itemPrefab;
+    private static ItemFactory instance;
+
+    public static ItemFactory Instance {
+        get {
+            if(instance == null) {
+                instance = new GameObject().AddComponent<ItemFactory>();
+            }
+            return instance;
+        }
+    }
 
     private static int itemId=0;
 
@@ -25,7 +35,7 @@ public class ItemFactory : MonoBehaviour{
 		
 	}
 
-    public GameObject createItem(int rarityMult = 1){
+    public GameObject createItem(float rarityMult = 1f){
         if(itemPrefab == null) {
             Debug.Log("item null");
         }
@@ -39,8 +49,8 @@ public class ItemFactory : MonoBehaviour{
         return item;
     }
 
-    private Rarity determineRarity(int multiplier){
-        int proc = (UnityEngine.Random.Range(1, 100)*multiplier);
+    private Rarity determineRarity(float multiplier){
+        float proc = (UnityEngine.Random.Range(1, 100)*multiplier);
 
         if(proc > 90) {
             return Rarity.rare;

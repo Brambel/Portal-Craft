@@ -8,6 +8,7 @@ public class InvintoryController : MonoBehaviour {
 
     public GameObject invintoryPanel;
     public GameController gameControl;
+    public MapController mapControl;
     public static InvintoryController Instance; //singelton call
 
     private ItemFactory itemFactory;
@@ -72,23 +73,22 @@ public class InvintoryController : MonoBehaviour {
         }
     }
 
-        void Start(){
-        Instance = this;
+    void Start(){
+        mapControl = MapController.Instance;
+        items = new invintoryList(8, invintoryPanel);  //currently all we have space for
     }
 
 	void Awake () {
-            
+        Instance = this;
+        //all factories are singeltons
+        itemFactory = ItemFactory.Instance;
 
-            //get a copy of the ItemFactory script so it dosn't need to be public
-            itemFactory = gameObject.AddComponent(typeof(ItemFactory)) as ItemFactory;
-            items = new invintoryList(8, invintoryPanel);  //currently all we have space for
          
 	}
 	
     public void freeItems(){
         //just for testing we'll add some items to their invintory
         for (int i = 0; i < Random.Range(4, 8); ++i) {
-            Debug.Log("items.count: " + items.getCount());
             if(items.addItem(itemFactory.createItem())) {
                 
             } else {
@@ -96,7 +96,6 @@ public class InvintoryController : MonoBehaviour {
             }
 
         }
-        Debug.Log("items.count: " + items.getCount());
     }
 
     public void itemClicked(PointerEventData eventData, Item item){
@@ -104,7 +103,11 @@ public class InvintoryController : MonoBehaviour {
         Debug.Log("items.count: " + items.getCount());
         if(item.BaseItem == BaseItem.map) {
             msg += " poof, rain items";
+            List<Item> loot = mapControl.createMapLoot(item);
             items.removeItem(item.gameObject);
+            foreach (Item i in loot) {
+                items.addItem(i.gameObject);
+            }
         } else if(item.BaseItem == BaseItem.material) {
             msg += " touching stuff";
         } else {
