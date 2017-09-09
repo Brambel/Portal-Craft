@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+
+<Base type="map">
+	<Name>Oasis</Name>
+	<Value>5</Value>
+	<MaxPrefix>2</MaxPrefix>
+	<MaxPostfix>2</MaxPostfix>
+	<Level>1</Level>
+</Base>
+<Base type="material">
+	<Name>Stone</Name>
+	<Value>1</Value>
+	<MaxPrefix>0</MaxPrefix>
+	<MaxPostfix>0</MaxPostfix>
+	<Level>1</Level>
+</Base>
+<Base type="material">
+	<Name>Dust</Name>
+	<Value>1</Value>
+	<MaxPrefix>1</MaxPrefix>
+	<MaxPostfix>0</MaxPostfix>
+	<Level>1</Level>
+</Base>

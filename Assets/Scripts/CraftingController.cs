@@ -23,10 +23,10 @@ public class CraftingController : MonoBehaviour {
 		
 	}
 
-    public void combinMaterials(Item a, Item b){
-        Debug.Log("we crafted something!");
+    public void combinMaterials(Item a, Item b){      
         invControl.removeItem(a);
         invControl.removeItem(b);
         invControl.addItem(itemFactory.createItem(BaseItem.map).GetComponent<Item>());
+        Debug.Log("we crafted something!");
     }
 }

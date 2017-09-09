@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class ItemFactory : MonoBehaviour{
 
     public GameObject itemPrefab;
+    public GameObject mapItemPrefab;
+
     private static ItemFactory instance;
 
     public static ItemFactory Instance {
@@ -40,13 +42,32 @@ public class ItemFactory : MonoBehaviour{
     }
 
     public GameObject createItem(BaseItem baseItem, float rarityMult = 1f){
-        GameObject item = Instantiate(itemPrefab, new Vector2(0, 0), itemPrefab.transform.rotation);
-        Item thisItem = item.GetComponent<Item>();
-        Rarity r = determineRarity(rarityMult);
+        GameObject item = null;
+        try{
         BaseItem b = baseItem;
+            Debug.Log(b);
+        Item thisItem=null;
+        switch(b) {
+        case BaseItem.map:
+                Debug.Log("in map");
+            item = Instantiate(mapItemPrefab, new Vector2(0, 0), mapItemPrefab.transform.rotation);
+            break;
+        case BaseItem.material:
+                Debug.Log("in matterials");
+            item = Instantiate(itemPrefab, new Vector2(0, 0), itemPrefab.transform.rotation);          
+            break;
+        }
+
+            thisItem = item.GetComponent<Item>();
+        Rarity r = determineRarity(rarityMult);
+
         thisItem.init(item,r.ToString()+" "+b.ToString(), r, b);
 
-        ++itemId;
+        ++itemId;        
+        }
+        catch(System.ArgumentException ex){
+            Debug.Log(ex.GetType().Name+": "+ex.Message);
+        }
         return item;
     }
 

@@ -134,7 +134,7 @@ public class InvintoryController : MonoBehaviour {
 
     public bool addItem(Item item){
         try{
-            items.addItem(itemFactory.createItem());
+            items.addItem(item.gameObject);
             return true;
         }
         catch(System.ArgumentException ex){

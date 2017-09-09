@@ -15,6 +15,10 @@ public class Item : MonoBehaviour
     public InvintoryController invController;
 
     private string itemName;
+    private int maxPrefix;
+    private int maxPostfix;
+    private int vaule;
+    private int level;
     private Rarity rarity;
     private BaseItem baseItem;
 
@@ -114,6 +118,10 @@ public class Item : MonoBehaviour
         } else {
             root.GetComponent<Image>().color = UnityEngine.Color.grey;
         }
+    }
+
+    public virtual string getType(){
+        return "Item";
     }
 
     public BaseItem BaseItem {

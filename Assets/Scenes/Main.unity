@@ -194,6 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invintoryPanel: {fileID: 1798851369}
   gameControl: {fileID: 1743690548}
+  mapControl: {fileID: 0}
 --- !u!1 &227562096
 GameObject:
   m_ObjectHideFlags: 0
